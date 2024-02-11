@@ -17,7 +17,7 @@
 
 
 
-std::fstream fieldatum("C:/Users/g3619/Desktop/web_01_test/test.csv");
+std::fstream fieldatum("./test.csv");
 Field tes_td(fieldatum);
 
 int main()
