@@ -4,6 +4,9 @@
 #include <iostream>
 #include <deque>
 #include<fstream>
+#include <string>
+
+//#include "./largeNum_16_64.h"
 
 
 class Field {
@@ -16,6 +19,7 @@ public:
 public:
 	Field();
 	Field(const int x);
+	Field(const std::string x_1, const std::string x_2, const std::string x_3, const std::string x_4, const std::string x_5, const std::string x_6, const std::string x_7, const std::string x_8);
 	Field(std::fstream& c_in);
 
 	Field operator=(const Field give);
@@ -37,6 +41,12 @@ public:
 const Field add_id;
 const Field mult_id(1);
 
+const Field a_cur("00000000", "00000000", "00000000", "00000000", "00000000", "00000000", "00000000", "00000003");
+const Field b_cur("00000000", "00000000", "00000000", "00000000", "00000000", "00000000", "00000000", "00000002");
+
+const Field basePoint_x("00000000", "00000000", "00000000", "00000000", "00000000", "00000000", "00000000", "00000001");
+const Field basePoint_y("00000000", "00000000", "00000000", "00000000", "00000000", "00000000", "00000000", "00000001");
+
 Field::Field()
 {
 
@@ -51,6 +61,187 @@ Field::Field(const int x)
 		element.push_back(1);
 
 		for (int i = 0; i < 255; i++) { element.push_back(0); }
+	}
+
+}
+
+Field::Field(const std::string x_1, const std::string x_2, const std::string x_3, const std::string x_4, const std::string x_5, const std::string x_6, const std::string x_7, const std::string x_8)
+{
+
+	for (int i = 7; i >= 0; i--)
+	{
+
+		if (x_8[i] == '0') { element.push_back(0); element.push_back(0); element.push_back(0); element.push_back(0); }
+		else if (x_8[i] == '1') { element.push_back(1); element.push_back(0); element.push_back(0); element.push_back(0); }
+		else if (x_8[i] == '2') { element.push_back(0); element.push_back(1); element.push_back(0); element.push_back(0); }
+		else if (x_8[i] == '3') { element.push_back(1); element.push_back(1); element.push_back(0); element.push_back(0); }
+		else if (x_8[i] == '4') { element.push_back(0); element.push_back(0); element.push_back(1); element.push_back(0); }
+		else if (x_8[i] == '5') { element.push_back(1); element.push_back(0); element.push_back(1); element.push_back(0); }
+		else if (x_8[i] == '6') { element.push_back(0); element.push_back(1); element.push_back(1); element.push_back(0); }
+		else if (x_8[i] == '7') { element.push_back(1); element.push_back(1); element.push_back(1); element.push_back(0); }
+		else if (x_8[i] == '8') { element.push_back(0); element.push_back(0); element.push_back(0); element.push_back(1); }
+		else if (x_8[i] == '9') { element.push_back(1); element.push_back(0); element.push_back(0); element.push_back(1); }
+		else if (x_8[i] == 'A') { element.push_back(0); element.push_back(1); element.push_back(0); element.push_back(1); }
+		else if (x_8[i] == 'B') { element.push_back(1); element.push_back(1); element.push_back(0); element.push_back(1); }
+		else if (x_8[i] == 'C') { element.push_back(0); element.push_back(0); element.push_back(1); element.push_back(1); }
+		else if (x_8[i] == 'D') { element.push_back(1); element.push_back(0); element.push_back(1); element.push_back(1); }
+		else if (x_8[i] == 'E') { element.push_back(0); element.push_back(1); element.push_back(1); element.push_back(1); }
+		else if (x_8[i] == 'F') { element.push_back(1); element.push_back(1); element.push_back(1); element.push_back(1); }
+
+	}
+
+	for (int i = 7; i >= 0; i--)
+	{
+
+		if (x_7[i] == '0') { element.push_back(0); element.push_back(0); element.push_back(0); element.push_back(0); }
+		else if (x_7[i] == '1') { element.push_back(1); element.push_back(0); element.push_back(0); element.push_back(0); }
+		else if (x_7[i] == '2') { element.push_back(0); element.push_back(1); element.push_back(0); element.push_back(0); }
+		else if (x_7[i] == '3') { element.push_back(1); element.push_back(1); element.push_back(0); element.push_back(0); }
+		else if (x_7[i] == '4') { element.push_back(0); element.push_back(0); element.push_back(1); element.push_back(0); }
+		else if (x_7[i] == '5') { element.push_back(1); element.push_back(0); element.push_back(1); element.push_back(0); }
+		else if (x_7[i] == '6') { element.push_back(0); element.push_back(1); element.push_back(1); element.push_back(0); }
+		else if (x_7[i] == '7') { element.push_back(1); element.push_back(1); element.push_back(1); element.push_back(0); }
+		else if (x_7[i] == '8') { element.push_back(0); element.push_back(0); element.push_back(0); element.push_back(1); }
+		else if (x_7[i] == '9') { element.push_back(1); element.push_back(0); element.push_back(0); element.push_back(1); }
+		else if (x_7[i] == 'A') { element.push_back(0); element.push_back(1); element.push_back(0); element.push_back(1); }
+		else if (x_7[i] == 'B') { element.push_back(1); element.push_back(1); element.push_back(0); element.push_back(1); }
+		else if (x_7[i] == 'C') { element.push_back(0); element.push_back(0); element.push_back(1); element.push_back(1); }
+		else if (x_7[i] == 'D') { element.push_back(1); element.push_back(0); element.push_back(1); element.push_back(1); }
+		else if (x_7[i] == 'E') { element.push_back(0); element.push_back(1); element.push_back(1); element.push_back(1); }
+		else if (x_7[i] == 'F') { element.push_back(1); element.push_back(1); element.push_back(1); element.push_back(1); }
+
+	}
+
+	for (int i = 7; i >= 0; i--)
+	{
+
+		if (x_6[i] == '0') { element.push_back(0); element.push_back(0); element.push_back(0); element.push_back(0); }
+		else if (x_6[i] == '1') { element.push_back(1); element.push_back(0); element.push_back(0); element.push_back(0); }
+		else if (x_6[i] == '2') { element.push_back(0); element.push_back(1); element.push_back(0); element.push_back(0); }
+		else if (x_6[i] == '3') { element.push_back(1); element.push_back(1); element.push_back(0); element.push_back(0); }
+		else if (x_6[i] == '4') { element.push_back(0); element.push_back(0); element.push_back(1); element.push_back(0); }
+		else if (x_6[i] == '5') { element.push_back(1); element.push_back(0); element.push_back(1); element.push_back(0); }
+		else if (x_6[i] == '6') { element.push_back(0); element.push_back(1); element.push_back(1); element.push_back(0); }
+		else if (x_6[i] == '7') { element.push_back(1); element.push_back(1); element.push_back(1); element.push_back(0); }
+		else if (x_6[i] == '8') { element.push_back(0); element.push_back(0); element.push_back(0); element.push_back(1); }
+		else if (x_6[i] == '9') { element.push_back(1); element.push_back(0); element.push_back(0); element.push_back(1); }
+		else if (x_6[i] == 'A') { element.push_back(0); element.push_back(1); element.push_back(0); element.push_back(1); }
+		else if (x_6[i] == 'B') { element.push_back(1); element.push_back(1); element.push_back(0); element.push_back(1); }
+		else if (x_6[i] == 'C') { element.push_back(0); element.push_back(0); element.push_back(1); element.push_back(1); }
+		else if (x_6[i] == 'D') { element.push_back(1); element.push_back(0); element.push_back(1); element.push_back(1); }
+		else if (x_6[i] == 'E') { element.push_back(0); element.push_back(1); element.push_back(1); element.push_back(1); }
+		else if (x_6[i] == 'F') { element.push_back(1); element.push_back(1); element.push_back(1); element.push_back(1); }
+
+	}
+
+	for (int i = 7; i >= 0; i--)
+	{
+
+		if (x_5[i] == '0') { element.push_back(0); element.push_back(0); element.push_back(0); element.push_back(0); }
+		else if (x_5[i] == '1') { element.push_back(1); element.push_back(0); element.push_back(0); element.push_back(0); }
+		else if (x_5[i] == '2') { element.push_back(0); element.push_back(1); element.push_back(0); element.push_back(0); }
+		else if (x_5[i] == '3') { element.push_back(1); element.push_back(1); element.push_back(0); element.push_back(0); }
+		else if (x_5[i] == '4') { element.push_back(0); element.push_back(0); element.push_back(1); element.push_back(0); }
+		else if (x_5[i] == '5') { element.push_back(1); element.push_back(0); element.push_back(1); element.push_back(0); }
+		else if (x_5[i] == '6') { element.push_back(0); element.push_back(1); element.push_back(1); element.push_back(0); }
+		else if (x_5[i] == '7') { element.push_back(1); element.push_back(1); element.push_back(1); element.push_back(0); }
+		else if (x_5[i] == '8') { element.push_back(0); element.push_back(0); element.push_back(0); element.push_back(1); }
+		else if (x_5[i] == '9') { element.push_back(1); element.push_back(0); element.push_back(0); element.push_back(1); }
+		else if (x_5[i] == 'A') { element.push_back(0); element.push_back(1); element.push_back(0); element.push_back(1); }
+		else if (x_5[i] == 'B') { element.push_back(1); element.push_back(1); element.push_back(0); element.push_back(1); }
+		else if (x_5[i] == 'C') { element.push_back(0); element.push_back(0); element.push_back(1); element.push_back(1); }
+		else if (x_5[i] == 'D') { element.push_back(1); element.push_back(0); element.push_back(1); element.push_back(1); }
+		else if (x_5[i] == 'E') { element.push_back(0); element.push_back(1); element.push_back(1); element.push_back(1); }
+		else if (x_5[i] == 'F') { element.push_back(1); element.push_back(1); element.push_back(1); element.push_back(1); }
+
+	}
+
+	for (int i = 7; i >= 0; i--)
+	{
+
+		if (x_4[i] == '0') { element.push_back(0); element.push_back(0); element.push_back(0); element.push_back(0); }
+		else if (x_4[i] == '1') { element.push_back(1); element.push_back(0); element.push_back(0); element.push_back(0); }
+		else if (x_4[i] == '2') { element.push_back(0); element.push_back(1); element.push_back(0); element.push_back(0); }
+		else if (x_4[i] == '3') { element.push_back(1); element.push_back(1); element.push_back(0); element.push_back(0); }
+		else if (x_4[i] == '4') { element.push_back(0); element.push_back(0); element.push_back(1); element.push_back(0); }
+		else if (x_4[i] == '5') { element.push_back(1); element.push_back(0); element.push_back(1); element.push_back(0); }
+		else if (x_4[i] == '6') { element.push_back(0); element.push_back(1); element.push_back(1); element.push_back(0); }
+		else if (x_4[i] == '7') { element.push_back(1); element.push_back(1); element.push_back(1); element.push_back(0); }
+		else if (x_4[i] == '8') { element.push_back(0); element.push_back(0); element.push_back(0); element.push_back(1); }
+		else if (x_4[i] == '9') { element.push_back(1); element.push_back(0); element.push_back(0); element.push_back(1); }
+		else if (x_4[i] == 'A') { element.push_back(0); element.push_back(1); element.push_back(0); element.push_back(1); }
+		else if (x_4[i] == 'B') { element.push_back(1); element.push_back(1); element.push_back(0); element.push_back(1); }
+		else if (x_4[i] == 'C') { element.push_back(0); element.push_back(0); element.push_back(1); element.push_back(1); }
+		else if (x_4[i] == 'D') { element.push_back(1); element.push_back(0); element.push_back(1); element.push_back(1); }
+		else if (x_4[i] == 'E') { element.push_back(0); element.push_back(1); element.push_back(1); element.push_back(1); }
+		else if (x_4[i] == 'F') { element.push_back(1); element.push_back(1); element.push_back(1); element.push_back(1); }
+
+	}
+
+	for (int i = 7; i >= 0; i--)
+	{
+
+		if (x_3[i] == '0') { element.push_back(0); element.push_back(0); element.push_back(0); element.push_back(0); }
+		else if (x_3[i] == '1') { element.push_back(1); element.push_back(0); element.push_back(0); element.push_back(0); }
+		else if (x_3[i] == '2') { element.push_back(0); element.push_back(1); element.push_back(0); element.push_back(0); }
+		else if (x_3[i] == '3') { element.push_back(1); element.push_back(1); element.push_back(0); element.push_back(0); }
+		else if (x_3[i] == '4') { element.push_back(0); element.push_back(0); element.push_back(1); element.push_back(0); }
+		else if (x_3[i] == '5') { element.push_back(1); element.push_back(0); element.push_back(1); element.push_back(0); }
+		else if (x_3[i] == '6') { element.push_back(0); element.push_back(1); element.push_back(1); element.push_back(0); }
+		else if (x_3[i] == '7') { element.push_back(1); element.push_back(1); element.push_back(1); element.push_back(0); }
+		else if (x_3[i] == '8') { element.push_back(0); element.push_back(0); element.push_back(0); element.push_back(1); }
+		else if (x_3[i] == '9') { element.push_back(1); element.push_back(0); element.push_back(0); element.push_back(1); }
+		else if (x_3[i] == 'A') { element.push_back(0); element.push_back(1); element.push_back(0); element.push_back(1); }
+		else if (x_3[i] == 'B') { element.push_back(1); element.push_back(1); element.push_back(0); element.push_back(1); }
+		else if (x_3[i] == 'C') { element.push_back(0); element.push_back(0); element.push_back(1); element.push_back(1); }
+		else if (x_3[i] == 'D') { element.push_back(1); element.push_back(0); element.push_back(1); element.push_back(1); }
+		else if (x_3[i] == 'E') { element.push_back(0); element.push_back(1); element.push_back(1); element.push_back(1); }
+		else if (x_3[i] == 'F') { element.push_back(1); element.push_back(1); element.push_back(1); element.push_back(1); }
+
+	}
+
+	for (int i = 7; i >= 0; i--)
+	{
+
+		if (x_2[i] == '0') { element.push_back(0); element.push_back(0); element.push_back(0); element.push_back(0); }
+		else if (x_2[i] == '1') { element.push_back(1); element.push_back(0); element.push_back(0); element.push_back(0); }
+		else if (x_2[i] == '2') { element.push_back(0); element.push_back(1); element.push_back(0); element.push_back(0); }
+		else if (x_2[i] == '3') { element.push_back(1); element.push_back(1); element.push_back(0); element.push_back(0); }
+		else if (x_2[i] == '4') { element.push_back(0); element.push_back(0); element.push_back(1); element.push_back(0); }
+		else if (x_2[i] == '5') { element.push_back(1); element.push_back(0); element.push_back(1); element.push_back(0); }
+		else if (x_2[i] == '6') { element.push_back(0); element.push_back(1); element.push_back(1); element.push_back(0); }
+		else if (x_2[i] == '7') { element.push_back(1); element.push_back(1); element.push_back(1); element.push_back(0); }
+		else if (x_2[i] == '8') { element.push_back(0); element.push_back(0); element.push_back(0); element.push_back(1); }
+		else if (x_2[i] == '9') { element.push_back(1); element.push_back(0); element.push_back(0); element.push_back(1); }
+		else if (x_2[i] == 'A') { element.push_back(0); element.push_back(1); element.push_back(0); element.push_back(1); }
+		else if (x_2[i] == 'B') { element.push_back(1); element.push_back(1); element.push_back(0); element.push_back(1); }
+		else if (x_2[i] == 'C') { element.push_back(0); element.push_back(0); element.push_back(1); element.push_back(1); }
+		else if (x_2[i] == 'D') { element.push_back(1); element.push_back(0); element.push_back(1); element.push_back(1); }
+		else if (x_2[i] == 'E') { element.push_back(0); element.push_back(1); element.push_back(1); element.push_back(1); }
+		else if (x_2[i] == 'F') { element.push_back(1); element.push_back(1); element.push_back(1); element.push_back(1); }
+
+	}
+
+	for (int i = 7; i >= 0; i--)
+	{
+
+		if (x_1[i] == '0') { element.push_back(0); element.push_back(0); element.push_back(0); element.push_back(0); }
+		else if (x_1[i] == '1') { element.push_back(1); element.push_back(0); element.push_back(0); element.push_back(0); }
+		else if (x_1[i] == '2') { element.push_back(0); element.push_back(1); element.push_back(0); element.push_back(0); }
+		else if (x_1[i] == '3') { element.push_back(1); element.push_back(1); element.push_back(0); element.push_back(0); }
+		else if (x_1[i] == '4') { element.push_back(0); element.push_back(0); element.push_back(1); element.push_back(0); }
+		else if (x_1[i] == '5') { element.push_back(1); element.push_back(0); element.push_back(1); element.push_back(0); }
+		else if (x_1[i] == '6') { element.push_back(0); element.push_back(1); element.push_back(1); element.push_back(0); }
+		else if (x_1[i] == '7') { element.push_back(1); element.push_back(1); element.push_back(1); element.push_back(0); }
+		else if (x_1[i] == '8') { element.push_back(0); element.push_back(0); element.push_back(0); element.push_back(1); }
+		else if (x_1[i] == '9') { element.push_back(1); element.push_back(0); element.push_back(0); element.push_back(1); }
+		else if (x_1[i] == 'A') { element.push_back(0); element.push_back(1); element.push_back(0); element.push_back(1); }
+		else if (x_1[i] == 'B') { element.push_back(1); element.push_back(1); element.push_back(0); element.push_back(1); }
+		else if (x_1[i] == 'C') { element.push_back(0); element.push_back(0); element.push_back(1); element.push_back(1); }
+		else if (x_1[i] == 'D') { element.push_back(1); element.push_back(0); element.push_back(1); element.push_back(1); }
+		else if (x_1[i] == 'E') { element.push_back(0); element.push_back(1); element.push_back(1); element.push_back(1); }
+		else if (x_1[i] == 'F') { element.push_back(1); element.push_back(1); element.push_back(1); element.push_back(1); }
+
 	}
 
 }
@@ -152,7 +343,7 @@ Field Field::operator*(Field x) const
 
 bool Field::operator==(const Field x) const
 {
-	for (int i = 0; i <= 255; i++) 
+	for (int i = 0; i <= 255; i++)
 	{
 		if (element[i] != x.element[i]) return false;
 	}
@@ -162,7 +353,7 @@ bool Field::operator==(const Field x) const
 
 bool Field::operator!=(const Field x) const
 {
-	
+
 	return !(*this == x);
 
 }
@@ -203,9 +394,9 @@ void Field::printMat() const
 
 void Field::printNum() const
 {
-	
-	std::cout << std::endl;
-	
+
+//	std::cout << std::endl;
+
 
 	for (int i = 8; i >= 2; i--)
 	{
@@ -231,7 +422,7 @@ void Field::printNum() const
 			else if (k == 13) { std::cout << 'D'; }
 			else if (k == 14) { std::cout << 'E'; }
 			else if (k == 15) { std::cout << 'F'; }
-		
+
 
 		}
 
@@ -264,14 +455,14 @@ void Field::printNum() const
 			else if (k == 13) { std::cout << 'D'; }
 			else if (k == 14) { std::cout << 'E'; }
 			else if (k == 15) { std::cout << 'F'; }
-			
+
 
 		}
 
 
 	}
 
-	std::cout << std::endl;
+//	std::cout << std::endl;
 
 }
 
