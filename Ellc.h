@@ -9,6 +9,9 @@
 #define a_curve a_cur
 #define b_curve b_cur
 
+#define base_coor_x basePoint_x
+#define base_coor_y basePoint_y
+
 
 class Ellc {
 
@@ -17,19 +20,16 @@ public:
 	Field coor_x;
 	Field coor_y;
 
-	Field a_cur;
-	Field b_cur;
-
-	//Èº¼Ó·¨Ô­µãpt_O£»
+	//ç¾¤åŠ æ³•åŸç‚¹pt_Oï¼›
 	bool pt_O;
 
 public:
 	Ellc();
-
+	Ellc(Field x, Field y);
 
 
 public:
-	bool Ellc_on() const;//ÌØÊâº¯Êı£¬¼ìÑéµãÊÇ·ñÔÚÇúÏßÉÏ
+	bool Ellc_on() const;//ç‰¹æ®Šå‡½æ•°ï¼Œæ£€éªŒç‚¹æ˜¯å¦åœ¨æ›²çº¿ä¸Š
 
 public:
 	Ellc operator=(const Ellc give);
@@ -42,40 +42,37 @@ public:
 
 Ellc::Ellc()
 {
-	Field x;
-	{x.element[0] = 1; }
-	coor_x = x;
 
-	Field y;
-	{y.element[0] = 1; }
-	coor_y = y;
+	coor_x = base_coor_x;
 
-	Field a;
-	{a.element[0] = 1; a.element[1] = 1; }
-	a_cur = a;
-
-	Field b;
-	{b.element[1] = 1; }
-	b_cur = b;
+	coor_y = base_coor_y;
 
 	bool inf = false;
 	pt_O = inf;
 
 }
 
-//ÌØÊâº¯Êı£¬¼ìÑéµãÊÇ·ñÔÚÇúÏßÉÏ
+Ellc::Ellc(Field x, Field y)
+{
+	
+	coor_x = x;
+	coor_y = y;
+
+	bool inf = false;
+	pt_O = inf;
+
+}
+
+//ç‰¹æ®Šå‡½æ•°ï¼Œæ£€éªŒç‚¹æ˜¯å¦åœ¨æ›²çº¿ä¸Š
 bool Ellc::Ellc_on() const
 {
-	//ÍÖÔ²ÇúÏßµÄ·½³ÌÎª£º$y^2+xy=x^3+ax^2+b$ over $F_{x^{256}$
-
-	Field x(1);
-	x = coor_y * coor_y + coor_x * coor_y + coor_x * coor_x * coor_x + a_curve * coor_x * coor_x + b_curve;
-
-	for (int i = 0; i <= 255; i++)
-	{
-		if (x.element[i] != 0) { return false; }
-	}
+	//æ¤­åœ†æ›²çº¿çš„æ–¹ç¨‹ä¸ºï¼š$y^2+xy=x^3+ax^2+b$ over $F_{x^{256}$
 	
+	Field x = coor_y * coor_y + coor_x * coor_y + coor_x * coor_x * coor_x + a_curve * coor_x * coor_x + b_curve;
+
+	
+	if (x != add_id) { return false; }
+
 	return true;
 }
 
@@ -90,22 +87,22 @@ Ellc Ellc::operator=(const Ellc give)
 
 Ellc Ellc::operator+(const Ellc x) const
 {
-	
-		//  Elliptic Curve Equation: $ y^2+xy=x^3+ax^2+b$ over $F_{x^{256} $
-		//  rmk: a_curve=a_cur,b_curve=b_cur¡£
+
+	//  Elliptic Curve Equation: $ y^2+xy=x^3+ax^2+b$ over $F_{x^{256} $
+	//  rmk: a_curve=a_cur,b_curve=b_curã€‚
 
 //O:
 	if (pt_O) { return x; }
 
 
-//A:
+	//A:
 	else if (coor_x == x.coor_x && coor_y != x.coor_y) { Ellc y; y.pt_O = false; return y; }
-	
 
-//B:
+
+	//B:
 	else if (coor_x == x.coor_x && coor_y == x.coor_y)
 	{
-		//ÏÈ¿´ " C:" µÄ¼ÆËã±È½ÏºÃÒ»µã¡£
+		//å…ˆçœ‹ " C:" çš„è®¡ç®—æ¯”è¾ƒå¥½ä¸€ç‚¹ã€‚
 
 		//k=x+y/x
 		Field k = coor_x + coor_y * coor_x.inverse();
@@ -120,7 +117,7 @@ Ellc Ellc::operator+(const Ellc x) const
 	}
 
 
-//C:
+	//C:
 	else
 	{
 		//k=(y_1+y_2)/(x_1+x_2)
