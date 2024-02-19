@@ -1,165 +1,33 @@
-﻿#include <iostream>
-#include <deque>
-#include <fstream>
-
-#include "./Field.h"
-#include "./Ellc.h"
-#include "./Ecc.h"
-#include "./shellSche.h"
-
-// 定义ANSI转义序列
-#define ANSI_COLOR_RED     "\x1b[31m"
-#define ANSI_COLOR_GREEN   "\x1b[32m"
-#define ANSI_COLOR_YELLOW  "\x1b[33m"
-#define ANSI_COLOR_BLUE    "\x1b[34m"
-#define ANSI_COLOR_MAGENTA "\x1b[35m"
-#define ANSI_COLOR_CYAN    "\x1b[36m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
-
-
-
-std::fstream fieldatum("./test.csv");
-Field tes_td(fieldatum);
-
 int main()
 {
 
-	void pointSeek(int a,int b);
-	void pointMult(Ellc x);
+    
 
-//	pointSeek(10000, 1000);
+    Field u("3B91E4BA", "9C206D15", "8F7EA5EF", "8C603D14", "9B5D7DDF", "F575F77F", "D5D7DDFF", "575F77EC");
 
-	Ellc p;
-	pointMult(p);
+    Field v("D99CC546", "CB702628", "1EF0CDE6", "910D035F", "B5954E2F", "42358F83", "9954E2F4", "2358F848");
+    
+
+    //shell();
+
+    Field u_1("3B91E4BA", "9C206D15", "8F7EA5EF", "8C553D14", "9B5E7DDF", "F575F77F", "D5D7DDFF", "575FA7EC");
+
+    Field a = a_t(u_1);
+    Field b = b_t(u_1);
+
+
+
+    
+    Field p = solveEqu(a, b);
+
+
+    Ellc x(u_1,p);
+    if (x.Ellc_on()) { std::cout << "true"; }   //检验x(u,v)是否在点curve x上。
+
+
 
 	
-
-
 }
-
-
-void pointSeek(int a, int b)
-{
-
-	Ellc cal;
-
-	for (int i = 0; i <= a; i++)
-	{
-
-		Field x;
-
-		for (int res = i; res != 0;)
-		{
-
-			int j = 0, k = 0;
-
-			for (int p = 1; p <= res; p = p * 2)
-			{
-				j = p;
-				k++;
-
-			}
-
-			res = res - j;
-
-			if (j != 0) { x.element[k - 1] = 1; }
-
-		}
-
-		x.printNum();
-
-		for (int ii = 0; ii <= b; ii++)
-		{
-
-			Field y;
-
-
-			for (int res = ii; res != 0;)
-			{
-
-				int j = 0, k = 0;
-
-				for (int p = 1; p <= res; p = p * 2)
-				{
-					j = p;
-					k++;
-
-				}
-
-				res = res - j;
-
-				if (j != 0) { y.element[k - 1] = 1; }
-
-			}
-
-			if (ii % 100 == 0) { std::cout << ii << " "; }
-
-			std::cout << ANSI_COLOR_GREEN;
-			if (add_id == (y * y + x * y + x * x * x + cal.a_curve * x * x + cal.b_curve)) { y.printNum(); std::cout << "we find" << std::endl; }
-			std::cout << ANSI_COLOR_RESET;
-
-		}
-
-	}
-
-
-}
-
-void pointMult(Ellc x)
-{
-
-	Ellc y=x;
-
-	std::cout << std::endl << "basic point" << std::endl;
-	y.coor_x.printNum();
-	y.coor_y.printNum();
-	std::cout << std::endl << "exponent on-goiong ......  " << std::endl;
-
-	for (int i = 1; i <= 100; i++)
-	{
-		y = y + y;
-
-		std::cout << std::endl << "table: " << i;
-
-		y.coor_x.printNum();
-		y.coor_y.printNum();
-
-		if (y.Ellc_on())
-		{
-
-			// 设置输出字符的颜色
-			std::cout << ANSI_COLOR_GREEN;
-
-
-			std::cout << std::endl << "		point on the 'algebraic variety'  ECC_cal succeed。		" << std::endl;
-
-
-			// 设置输出字符的颜色
-			std::cout << ANSI_COLOR_RESET;
-
-		}
-		else
-		{
-
-			// 设置输出字符的颜色
-			std::cout << ANSI_COLOR_RED;
-
-
-			std::cout << std::endl << "		!!WARNING!!  Point Off!!   ECC Drop Out		" << std::endl;
-
-
-			// 设置输出字符的颜色
-			std::cout << ANSI_COLOR_RESET;
-
-		}
-
-		std::cout << std::endl << std::endl << std::endl;
-
-	}
-
-
-}
-
 
 
 
