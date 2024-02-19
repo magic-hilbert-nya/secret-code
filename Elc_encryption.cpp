@@ -4,7 +4,8 @@
 
 #include "./Field.h"
 #include "./Ellc.h"
-
+#include "./Ecc.h"
+#include "./shellSche.h"
 
 // 定义ANSI转义序列
 #define ANSI_COLOR_RED     "\x1b[31m"
